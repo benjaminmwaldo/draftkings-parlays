@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NHL Parlay Picks — Feb 26, 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #1f6feb;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 800;
+      color: #f0f6fc;
+      line-height: 1.2;
+    }
+
+    .subtitle {
+      margin-top: 8px;
+      color: #8b949e;
+      font-size: 14px;
+    }
+
+    /* ---- ALERT BOX ---- */
+    .alert {
+      background: #161b22;
+      border: 1px solid #f85149;
+      border-left: 4px solid #f85149;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+    }
+
+    .alert h2 {
+      color: #f85149;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+
+    .alert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 540px) {
+      .alert-grid { grid-template-columns: 1fr; }
+    }
+
+    .alert-item {
+      background: #0d1117;
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+
+    .alert-item .player {
+      font-weight: 700;
+      font-size: 14px;
+      color: #f0f6fc;
+    }
+
+    .alert-item .team {
+      font-size: 12px;
+      color: #8b949e;
+      margin-bottom: 4px;
+    }
+
+    .alert-item .note {
+      font-size: 12px;
+      color: #d29922;
+      line-height: 1.4;
+    }
+
+    /* ---- PARLAY CARDS ---- */
+    .parlay-card {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid #21262d;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .tier-badge {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 16px;
+    }
+
+    .tier-1 .tier-badge { background: #238636; color: #fff; }
+    .tier-2 .tier-badge { background: #1f6feb; color: #fff; }
+    .tier-3 .tier-badge { background: #8250df; color: #fff; }
+
+    .card-title { flex: 1; }
+    .card-title h2 {
+      font-size: 17px;
+      font-weight: 700;
+      color: #f0f6fc;
+      margin-bottom: 3px;
+    }
+    .card-title .tagline {
+      font-size: 12px;
+      color: #8b949e;
+    }
+
+    .payout-box {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .payout-box .odds {
+      font-size: 20px;
+      font-weight: 800;
+      color: #3fb950;
+    }
+    .payout-box .payout-label {
+      font-size: 11px;
+      color: #8b949e;
+    }
+
+    .card-body { padding: 4px 0 8px; }
+
+    .pick-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 22px;
+      border-bottom: 1px solid #21262d;
+    }
+    .pick-row:last-child { border-bottom: none; }
+
+    .pick-icon {
+      flex-shrink: 0;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      margin-top: 2px;
+    }
+
+    .tier-1 .pick-icon { background: #1a3d22; color: #3fb950; }
+    .tier-2 .pick-icon { background: #132040; color: #58a6ff; }
+    .tier-3 .pick-icon { background: #2a1f47; color: #bc8cff; }
+
+    .pick-info { flex: 1; }
+    .pick-info .pick-team {
+      font-weight: 700;
+      font-size: 15px;
+      color: #f0f6fc;
+    }
+    .pick-info .pick-matchup {
+      font-size: 12px;
+      color: #8b949e;
+      margin-bottom: 5px;
+    }
+    .pick-info .pick-reason {
+      font-size: 13px;
+      color: #c9d1d9;
+      line-height: 1.5;
+    }
+
+    .pick-line {
+      flex-shrink: 0;
+      text-align: right;
+    }
+    .pick-line .ml {
+      font-size: 16px;
+      font-weight: 700;
+    }
+    .tier-1 .pick-line .ml { color: #3fb950; }
+    .tier-2 .pick-line .ml { color: #58a6ff; }
+    .tier-3 .pick-line .ml { color: #bc8cff; }
+    .pick-line .ml-label {
+      font-size: 10px;
+      color: #8b949e;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+    }
+
+    .card-footer {
+      background: #0d1117;
+      border-top: 1px solid #21262d;
+      padding: 12px 22px;
+      font-size: 12px;
+      color: #8b949e;
+      line-height: 1.5;
+    }
+
+    .conditional-tag {
+      display: inline-block;
+      background: #2d1f00;
+      border: 1px solid #d29922;
+      color: #d29922;
+      font-size: 10px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      padding: 2px 8px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+
+    /* ---- AVOID TABLE ---- */
+    .avoid-section {
+      margin-top: 8px;
+    }
+
+    .avoid-section h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #8b949e;
+      margin-bottom: 12px;
+    }
+
+    .avoid-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 540px) {
+      .avoid-grid { grid-template-columns: 1fr; }
+    }
+
+    .avoid-item {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .avoid-item .matchup { font-weight: 600; font-size: 13px; color: #c9d1d9; margin-bottom: 4px; }
+    .avoid-item .reason { font-size: 12px; color: #6e7681; line-height: 1.4; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #6e7681;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="badge">NHL · Thursday, Feb 26</div>
+    <h1>DraftKings Parlay Picks</h1>
+    <p class="subtitle">3 parlays · $0.25 bet · Research compiled Feb 24, 2026</p>
+  </header>
+
+  <!-- INJURY ALERT -->
+  <div class="alert">
+    <h2>Check These Before Betting — Game Day Only</h2>
+    <div class="alert-grid">
+      <div class="alert-item">
+        <div class="team">Edmonton Oilers</div>
+        <div class="player">Connor McDavid</div>
+        <div class="note">Likely OUT (hand from Olympics). If confirmed, Kings ML becomes the best value on the slate. Line will move fast.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">Edmonton Oilers</div>
+        <div class="player">Leon Draisaitl</div>
+        <div class="note">Questionable (hand). If both McDavid + Drai sit, Kings become outright favorites.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">Pittsburgh Penguins</div>
+        <div class="player">Sidney Crosby</div>
+        <div class="note">Out with MCL sprain (Olympics). Avoid Devils/Penguins entirely — outcome is unpredictable without him.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">NY Rangers</div>
+        <div class="player">Igor Shesterkin</div>
+        <div class="note">Likely RETURNING (full practice). If confirmed starting, Rangers at -122 is underpriced.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">Colorado Avalanche</div>
+        <div class="player">Mikko Rantanen</div>
+        <div class="note">OUT on IR (re-injured at Olympics). Major loss. Wild ML value increases significantly.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">Ottawa Senators</div>
+        <div class="player">Linus Ullmark</div>
+        <div class="note">Returning from illness — confirm he actually dresses. Affects Detroit pick confidence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARLAY 1 -->
+  <div class="parlay-card tier-1">
+    <div class="card-header">
+      <div class="tier-badge">1</div>
+      <div class="card-title">
+        <h2>Likely to Hit</h2>
+        <div class="tagline">3 clean favorites · No back-to-back issues · Strong H2H records</div>
+      </div>
+      <div class="payout-box">
+        <div class="odds">~+320</div>
+        <div class="payout-label">est. odds</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="pick-row">
+        <div class="pick-icon">&#x2714;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Columbus @ Boston · 7:00 PM</div>
+          <div class="pick-team">Boston Bruins ML</div>
+          <div class="pick-reason">Home, rested, 7-3 H2H vs Columbus recently. Pavel Zacha cleared to return. Straightforward favorite in their own building.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-165</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-icon">&#x2714;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Chicago @ Nashville · 8:00 PM</div>
+          <div class="pick-team">Nashville Predators ML</div>
+          <div class="pick-reason">Chicago is 3-13 in their last 16 against Nashville. The Blackhawks are 1-6 in their last 7 games. Nashville at home, rested. Cleanest mismatch on the entire slate.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-150</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-icon">&#x2714;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Detroit @ Ottawa · 7:00 PM</div>
+          <div class="pick-team">Detroit Red Wings ML</div>
+          <div class="pick-reason">Detroit is 2-0 vs Ottawa this season, leads Ottawa by 9 points in the standings, and was 6-1 in their last 7 before the Olympic break. Ottawa's goalie Ullmark returning from illness — may not be 100%.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-125</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      Estimated payout on $0.25 bet: <strong>~$1.05</strong> &nbsp;|&nbsp; All three teams are home or have a rest advantage. Safest combination on this slate.
+    </div>
+  </div>
+
+  <!-- PARLAY 2 -->
+  <div class="parlay-card tier-2">
+    <div class="card-header">
+      <div class="tier-badge">2</div>
+      <div class="card-title">
+        <h2>Likely to Hit, Higher Return</h2>
+        <div class="tagline">4-team with two value adds · Verify Kings lineup before placing</div>
+      </div>
+      <div class="payout-box">
+        <div class="odds">~+750</div>
+        <div class="payout-label">est. odds</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="pick-row">
+        <div class="pick-icon">&#x2714;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Columbus @ Boston · 7:00 PM</div>
+          <div class="pick-team">Boston Bruins ML</div>
+          <div class="pick-reason">Same as Parlay 1. Best anchor on the slate.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-165</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-icon">&#x2714;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Chicago @ Nashville · 8:00 PM</div>
+          <div class="pick-team">Nashville Predators ML</div>
+          <div class="pick-reason">Same as Parlay 1. Cleanest mismatch on the slate.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-150</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-icon">&#x2714;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Tampa Bay @ Carolina · 7:00 PM</div>
+          <div class="pick-team">Carolina Hurricanes ML</div>
+          <div class="pick-reason">Tampa is playing the second night of a back-to-back after hosting Toronto on Feb 25. Carolina is rested at home with Brandon Bussi posting a 2.08 GAA in net. The rest advantage here is real.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-150</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-icon">&#x26A0;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Edmonton @ Los Angeles · 10:30 PM</div>
+          <div class="pick-team">Los Angeles Kings ML <span class="conditional-tag">Confirm McDavid Out</span></div>
+          <div class="pick-reason">If McDavid is confirmed out (hand, Olympics), the Oilers -150 line is badly mispriced. Kings have Artemi Panarin (just acquired from Rangers), are rested at home, and Edmonton is on a back-to-back. Get this bet in early — line will move fast once McDavid is officially scratched.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">+133</div>
+          <div class="ml-label">before adj.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      Estimated payout on $0.25 bet: <strong>~$2.13</strong> &nbsp;|&nbsp; <strong>Drop the Kings pick and run a 3-teamer if McDavid plays.</strong> The first three legs are solid regardless.
+    </div>
+  </div>
+
+  <!-- PARLAY 3 -->
+  <div class="parlay-card tier-3">
+    <div class="card-header">
+      <div class="tier-badge">3</div>
+      <div class="card-title">
+        <h2>High Payout, Reasonable Chance</h2>
+        <div class="tagline">3 informed underdogs with specific situational edges</div>
+      </div>
+      <div class="payout-box">
+        <div class="odds">~+1300</div>
+        <div class="payout-label">est. odds</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="pick-row">
+        <div class="pick-icon">&#x25B2;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Minnesota @ Colorado · 9:00 PM</div>
+          <div class="pick-team">Minnesota Wild ML</div>
+          <div class="pick-reason">Colorado is #1 in the NHL overall, but they're playing back-to-back AND Mikko Rantanen (traded there at the deadline) is on IR after re-injuring himself at the Olympics. Minnesota is 4th in the entire league, rested, and Kirill Kaprizov is healthy. Best informed underdog on the slate.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">+180</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-icon">&#x25B2;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Edmonton @ Los Angeles · 10:30 PM</div>
+          <div class="pick-team">Los Angeles Kings ML <span class="conditional-tag">Confirm McDavid Out</span></div>
+          <div class="pick-reason">Same as Parlay 2. McDavid likely out + Oilers on back-to-back + Kings rested with Panarin = the biggest line mismatch on the slate. Check this early and place the bet before the line corrects.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">+133</div>
+          <div class="ml-label">before adj.</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-icon">&#x25B2;</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Philadelphia @ NY Rangers · 8:00 PM</div>
+          <div class="pick-team">Philadelphia Flyers ML</div>
+          <div class="pick-reason">Flyers have 61 points vs Rangers' 50. Rangers have lost 8 of their last 10 and traded away Artemi Panarin mid-season. Rangers are rebuilding. Yes the Flyers are on a back-to-back, but this is a team with 11 more standings points playing a team in freefall. Shesterkin returning is the main risk — if he's confirmed starting, skip this leg.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">+113</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      Estimated payout on $0.25 bet: <strong>~$3.50</strong> &nbsp;|&nbsp; This is a <em>long shot with a brain</em>. Every pick has a specific edge — not random. The biggest risk is Shesterkin's return canceling the Flyers edge. Verify before placing.
+    </div>
+  </div>
+
+  <!-- AVOID SECTION -->
+  <div class="avoid-section">
+    <h2>Games to Avoid</h2>
+    <div class="avoid-grid">
+      <div class="avoid-item">
+        <div class="matchup">Devils @ Penguins</div>
+        <div class="reason">Crosby out with MCL sprain. Without him, Pittsburgh's entire lineup dynamic changes. Too uncertain — skip it.</div>
+      </div>
+      <div class="avoid-item">
+        <div class="matchup">Maple Leafs @ Panthers</div>
+        <div class="reason">Both teams depleted. Barkov out for the season (ACL/MCL), Tavares out, Leafs on a back-to-back. Total coin flip.</div>
+      </div>
+      <div class="avoid-item">
+        <div class="matchup">Kraken @ Blues</div>
+        <div class="reason">Kraken on back-to-back after Dallas. Blues are bad but rest advantage at home makes this unpredictable.</div>
+      </div>
+      <div class="avoid-item">
+        <div class="matchup">Flames @ Sharks</div>
+        <div class="reason">Calgary lost 6 of last 7. San Jose is mediocre. Low-confidence, low-reward game to include.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Research compiled Feb 24, 2026 &nbsp;·&nbsp; Verify all lineups and injury reports on game day &nbsp;·&nbsp; Bet responsibly
+  </footer>
+
+</div>
+</body>
+</html>
