@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NBA Parlay Picks — Feb 24, 2026</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #0d1117;
+      color: #e6edf3;
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 24px 16px 60px;
+    }
+
+    .container { max-width: 800px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      margin-bottom: 36px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid #21262d;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #c8762b;
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 20px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: clamp(22px, 5vw, 32px);
+      font-weight: 800;
+      color: #f0f6fc;
+      line-height: 1.2;
+    }
+
+    .subtitle { margin-top: 8px; color: #8b949e; font-size: 14px; }
+
+    .target-row {
+      display: flex;
+      gap: 12px;
+      margin-bottom: 32px;
+      justify-content: center;
+    }
+
+    .target-pill {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 10px;
+      padding: 14px 22px;
+      text-align: center;
+      flex: 1;
+      max-width: 200px;
+    }
+
+    .target-pill .amount { font-size: 26px; font-weight: 800; color: #3fb950; }
+    .target-pill .label { font-size: 12px; color: #8b949e; margin-top: 2px; }
+
+    /* ALERT */
+    .alert {
+      background: #161b22;
+      border: 1px solid #f85149;
+      border-left: 4px solid #f85149;
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 32px;
+    }
+
+    .alert h2 {
+      color: #f85149;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-bottom: 10px;
+    }
+
+    .alert-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+    }
+
+    @media (max-width: 540px) { .alert-grid { grid-template-columns: 1fr; } }
+
+    .alert-item {
+      background: #0d1117;
+      border-radius: 6px;
+      padding: 10px 12px;
+    }
+
+    .alert-item .player { font-weight: 700; font-size: 14px; color: #f0f6fc; }
+    .alert-item .team { font-size: 12px; color: #8b949e; margin-bottom: 3px; }
+    .alert-item .note { font-size: 12px; color: #d29922; line-height: 1.4; }
+
+    /* PARLAY CARDS */
+    .parlay-card {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 12px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 22px 14px;
+      border-bottom: 1px solid #21262d;
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+    }
+
+    .tier-badge {
+      flex-shrink: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .tier-a .tier-badge { background: #1a6b2f; color: #fff; }
+    .tier-b .tier-badge { background: #7b2fb5; color: #fff; }
+
+    .card-title { flex: 1; }
+    .card-title h2 { font-size: 17px; font-weight: 700; color: #f0f6fc; margin-bottom: 3px; }
+    .card-title .tagline { font-size: 12px; color: #8b949e; }
+
+    .payout-box { text-align: right; flex-shrink: 0; }
+    .payout-box .payout-amount { font-size: 24px; font-weight: 800; color: #3fb950; }
+    .payout-box .payout-label { font-size: 11px; color: #8b949e; }
+
+    .card-body { padding: 4px 0 8px; }
+
+    .pick-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 14px 22px;
+      border-bottom: 1px solid #21262d;
+    }
+    .pick-row:last-child { border-bottom: none; }
+
+    .pick-num {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      margin-top: 3px;
+    }
+
+    .tier-a .pick-num { background: #1a3d22; color: #3fb950; }
+    .tier-b .pick-num { background: #2a1f47; color: #bc8cff; }
+
+    .pick-info { flex: 1; }
+    .pick-info .pick-team { font-weight: 700; font-size: 15px; color: #f0f6fc; }
+    .pick-info .pick-matchup { font-size: 12px; color: #8b949e; margin-bottom: 5px; }
+    .pick-info .pick-reason { font-size: 13px; color: #c9d1d9; line-height: 1.5; }
+
+    .pick-line { flex-shrink: 0; text-align: right; }
+    .pick-line .ml { font-size: 16px; font-weight: 700; }
+    .tier-a .pick-line .ml { color: #3fb950; }
+    .tier-b .pick-line .ml { color: #bc8cff; }
+    .pick-line .ml-label { font-size: 10px; color: #8b949e; text-transform: uppercase; letter-spacing: .06em; }
+
+    .card-footer {
+      background: #0d1117;
+      border-top: 1px solid #21262d;
+      padding: 12px 22px;
+      font-size: 12px;
+      color: #8b949e;
+      line-height: 1.5;
+    }
+
+    .card-footer strong { color: #3fb950; }
+
+    /* AVOID */
+    .avoid-section { margin-top: 8px; }
+    .avoid-section h2 {
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: #8b949e;
+      margin-bottom: 12px;
+    }
+
+    .avoid-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    @media (max-width: 540px) { .avoid-grid { grid-template-columns: 1fr; } }
+
+    .avoid-item {
+      background: #161b22;
+      border: 1px solid #21262d;
+      border-radius: 8px;
+      padding: 12px 14px;
+    }
+    .avoid-item .matchup { font-weight: 600; font-size: 13px; color: #c9d1d9; margin-bottom: 4px; }
+    .avoid-item .reason { font-size: 12px; color: #6e7681; line-height: 1.4; }
+
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: #6e7681;
+      font-size: 12px;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <div class="badge">NBA · Tuesday, Feb 24</div>
+    <h1>DraftKings Parlay Picks</h1>
+    <p class="subtitle">2 parlays · $0.50 bet · Research compiled Feb 24, 2026</p>
+  </header>
+
+  <div class="target-row">
+    <div class="target-pill">
+      <div class="amount">$10</div>
+      <div class="label">Parlay A target</div>
+    </div>
+    <div class="target-pill">
+      <div class="amount">$20</div>
+      <div class="label">Parlay B target</div>
+    </div>
+  </div>
+
+  <!-- ALERT -->
+  <div class="alert">
+    <h2>Verify Before Placing — Game Day</h2>
+    <div class="alert-grid">
+      <div class="alert-item">
+        <div class="team">Miami Heat</div>
+        <div class="player">Giannis Antetokounmpo (OPP)</div>
+        <div class="note">Giannis is OUT for Milwaukee. Heat at home vs a Bucks team missing their entire offense. Confirm he hasn't been upgraded.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">Minnesota Timberwolves</div>
+        <div class="player">Lillard / Sharpe / Avdija (OPP)</div>
+        <div class="note">Portland's three best players are all OUT. Minnesota at home is a clean edge. Confirm no surprise returns.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">Los Angeles Lakers</div>
+        <div class="player">Franz Wagner (OPP)</div>
+        <div class="note">Wagner is OUT indefinitely for Orlando. Road game without their best player in LA. Confirm Suggs status too.</div>
+      </div>
+      <div class="alert-item">
+        <div class="team">Toronto Raptors (Parlay B only)</div>
+        <div class="player">SGA + Jalen Williams (OPP)</div>
+        <div class="note">OKC's top two scorers both OUT. Raptors at home as slight favorite vs a crippled Thunder squad.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARLAY A -->
+  <div class="parlay-card tier-a">
+    <div class="card-header">
+      <div class="tier-badge">A</div>
+      <div class="card-title">
+        <h2>Parlay A — Target $10</h2>
+        <div class="tagline">5-leg · 5 heavy favorites exploiting injury mismatches</div>
+      </div>
+      <div class="payout-box">
+        <div class="payout-amount">~$10</div>
+        <div class="payout-label">on $0.50 (~+1900)</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="pick-row">
+        <div class="pick-num">1</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Bucks @ Miami · 8:00 PM</div>
+          <div class="pick-team">Miami Heat ML</div>
+          <div class="pick-reason">Giannis is OUT. The Bucks at 24-31 without their franchise player, on the road in Miami. Heat are a legitimate playoff team. Clearest edge on the slate.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-245</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">2</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Trail Blazers @ Minnesota · 10:00 PM</div>
+          <div class="pick-team">Minnesota Timberwolves ML</div>
+          <div class="pick-reason">Portland is missing Damian Lillard (season-ending Achilles), Shaedon Sharpe (calf), and Deni Avdija (back). Three of their best players gone. Timberwolves are 6th in the West, at home, with a healthy roster.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-255</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">3</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Magic @ Los Angeles · 10:30 PM</div>
+          <div class="pick-team">Los Angeles Lakers ML</div>
+          <div class="pick-reason">Orlando's best player Franz Wagner is OUT indefinitely with a high ankle sprain. The Magic are a 30-26 team road tripping to LA without their leading scorer. Lakers at home are a clean favorite here.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-205</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">4</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Cavaliers @ New York · 7:30 PM</div>
+          <div class="pick-team">Cleveland Cavaliers ML</div>
+          <div class="pick-reason">Cleveland is 36-22 (4th East) and the market actually has them as road favorites at MSG — a sign the sportsbooks respect their roster over the Knicks right now. Both teams are relatively healthy. Cavs have been the better team this season.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-162</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">5</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Hornets @ Chicago · 8:00 PM</div>
+          <div class="pick-team">Charlotte Hornets ML</div>
+          <div class="pick-reason">Chicago is missing Anfernee Simons, Zach Collins (season-ending), Jaden Ivey, and Noa Essengue. Four rotation players down. The Bulls are 24-34 against a Hornets team that is modestly better and has a functional roster. -334 is expensive but the Bulls are genuinely gutted.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-334</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      Estimated payout on $0.50: <strong>~$10–$12</strong> &nbsp;·&nbsp; All 5 picks have an injury-based edge. Every opponent is missing key players. This is the safest path to the $10 target.
+    </div>
+  </div>
+
+  <!-- PARLAY B -->
+  <div class="parlay-card tier-b">
+    <div class="card-header">
+      <div class="tier-badge">B</div>
+      <div class="card-title">
+        <h2>Parlay B — Target $20</h2>
+        <div class="tagline">6-leg · Same core + Raptors value add vs depleted OKC</div>
+      </div>
+      <div class="payout-box">
+        <div class="payout-amount">~$20</div>
+        <div class="payout-label">on $0.50 (~+3900)</div>
+      </div>
+    </div>
+    <div class="card-body">
+      <div class="pick-row">
+        <div class="pick-num">1</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Bucks @ Miami · 8:00 PM</div>
+          <div class="pick-team">Miami Heat ML</div>
+          <div class="pick-reason">Same as Parlay A. Giannis out, Heat at home. Anchor leg.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-245</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">2</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Trail Blazers @ Minnesota · 10:00 PM</div>
+          <div class="pick-team">Minnesota Timberwolves ML</div>
+          <div class="pick-reason">Same as Parlay A. Lillard/Sharpe/Avdija all out for Portland.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-255</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">3</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Magic @ Los Angeles · 10:30 PM</div>
+          <div class="pick-team">Los Angeles Lakers ML</div>
+          <div class="pick-reason">Same as Parlay A. Franz Wagner out for Orlando.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-205</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">4</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Cavaliers @ New York · 7:30 PM</div>
+          <div class="pick-team">Cleveland Cavaliers ML</div>
+          <div class="pick-reason">Same as Parlay A. Market-respected road favorite at MSG.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-162</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">5</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Hornets @ Chicago · 8:00 PM</div>
+          <div class="pick-team">Charlotte Hornets ML</div>
+          <div class="pick-reason">Same as Parlay A. Bulls missing 4 rotation players.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-334</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+      <div class="pick-row">
+        <div class="pick-num">6</div>
+        <div class="pick-info">
+          <div class="pick-matchup">Thunder @ Toronto · 7:30 PM</div>
+          <div class="pick-team">Toronto Raptors ML</div>
+          <div class="pick-reason">The extra leg that gets you to $20. OKC is the #1 team in the West at 44-14, but both Shai Gilgeous-Alexander (abdomen, 1+ weeks) AND Jalen Williams (hamstring) are OUT. Those are their top two scorers. Toronto at home as a slight favorite makes sense against a shell of the Thunder squad. Near even-money leg that roughly doubles the payout.</div>
+        </div>
+        <div class="pick-line">
+          <div class="ml">-116</div>
+          <div class="ml-label">approx</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-footer">
+      Estimated payout on $0.50: <strong>~$20–$24</strong> &nbsp;·&nbsp; The Raptors leg is the swing leg — they're legitimately favored at home vs an OKC team missing SGA + Williams. This is not a random add.
+    </div>
+  </div>
+
+  <!-- AVOID -->
+  <div class="avoid-section">
+    <h2>Skip These Games</h2>
+    <div class="avoid-grid">
+      <div class="avoid-item">
+        <div class="matchup">Mavericks vs Nets</div>
+        <div class="reason">Dallas missing Kyrie, Cooper Flagg, and Lively. Nets 15-41. Both broken — coin flip, no edge.</div>
+      </div>
+      <div class="avoid-item">
+        <div class="matchup">Celtics vs Suns</div>
+        <div class="reason">Tatum out for the season, Brown questionable, Booker out. Two injured teams at -255. Too uncertain.</div>
+      </div>
+      <div class="avoid-item">
+        <div class="matchup">Warriors vs Pelicans</div>
+        <div class="reason">Curry OUT, Porzingis OUT, Butler OUT for Golden State. -122 over a 16-42 team is a thin, risky line.</div>
+      </div>
+      <div class="avoid-item">
+        <div class="matchup">76ers vs Pacers</div>
+        <div class="reason">Embiid QUESTIONABLE. If he sits, -481 evaporates. Don't bet without confirmed lineup.</div>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    Research compiled Feb 24, 2026 &nbsp;·&nbsp; Verify all injury reports before game time &nbsp;·&nbsp; Bet responsibly
+  </footer>
+
+</div>
+</body>
+</html>
